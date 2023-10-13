@@ -2,7 +2,7 @@ use anyhow::{anyhow, Result};
 
 use std::collections::HashMap;
 
-pub const MAX_STACK_CONFIG_NAME: &str = "absorb.maxStack";
+pub const MAX_STACK_CONFIG_NAME: &str = "hanoi.maxStack";
 pub const MAX_STACK: usize = 10;
 
 fn max_stack(repo: &git2::Repository) -> usize {
@@ -88,7 +88,7 @@ pub fn working_stack<'repo>(
             }
         }
         if ret.len() == max_stack(repo) && user_provided_base.is_none() {
-            warn!(logger, "stack limit reached, use --base or configure absorb.maxStack to override";
+            warn!(logger, "stack limit reached, use --base or configure hanoi.maxStack to override";
                   "limit" => ret.len());
             break;
         }

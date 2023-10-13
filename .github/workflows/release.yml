@@ -113,7 +113,7 @@ jobs:
 
       - name: Strip release binary (linux and macos)
         if: matrix.build == 'linux' || matrix.build == 'macos'
-        run: strip "target/${{ matrix.target }}/release/git-absorb"
+        run: strip "target/${{ matrix.target }}/release/git-hanoi"
 
       - name: Strip release binary (linux-arm)
         if: matrix.build == 'linux-arm'
@@ -122,24 +122,24 @@ jobs:
             "$PWD/target:/target:Z" \
             rustembedded/cross:arm-unknown-linux-gnueabihf \
             arm-linux-gnueabihf-strip \
-            /target/arm-unknown-linux-gnueabihf/release/git-absorb
+            /target/arm-unknown-linux-gnueabihf/release/git-hanoi
 
       - name: Build archive
         shell: bash
         run: |
           outdir="./target/${{ matrix.target }}/release"
-          staging="git-absorb-${{ needs.create-release.outputs.GA_VERSION }}-${{ matrix.target }}"
+          staging="git-hanoi-${{ needs.create-release.outputs.GA_VERSION }}-${{ matrix.target }}"
           mkdir -p "$staging"/doc
 
-          cp {README.md,LICENSE.md} "$staging/"
-          cp Documentation/{git-absorb.1,git-absorb.txt} "$staging/doc/"
+          cp {README.md,LICENSE.txt} "$staging/"
+          #cp Documentation/{git-absorb.1,git-absorb.txt} "$staging/doc/"
 
           if [[ "${{ matrix.target }}" =~ .*windows.* ]]; then
-            cp "target/${{ matrix.target }}/release/git-absorb.exe" "$staging/"
+            cp "target/${{ matrix.target }}/release/git-hanoi.exe" "$staging/"
             7z a "$staging.zip" "$staging"
             echo "ASSET=$staging.zip" >> $GITHUB_ENV
           else
-            cp "target/${{ matrix.target }}/release/git-absorb" "$staging/"
+            cp "target/${{ matrix.target }}/release/git-hanoi" "$staging/"
             tar czf "$staging.tar.gz" "$staging"
             echo "ASSET=$staging.tar.gz" >> $GITHUB_ENV
           fi

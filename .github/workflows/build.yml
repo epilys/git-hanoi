@@ -20,7 +20,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: git-absorb-${{ matrix.os }}
+        name: git-hanoi-${{ matrix.os }}
         path: |
-          target/release/git-absorb
-          target/release/git-absorb.exe
+          target/release/git-hanoi
+          target/release/git-hanoi.exe

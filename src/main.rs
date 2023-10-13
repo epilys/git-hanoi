@@ -5,6 +5,8 @@ extern crate clap;
 extern crate slog;
 
 use clap::Shell;
+use cursive::views::{Dialog, TextView};
+
 use slog::Drain;
 use std::io;
 
@@ -13,7 +15,7 @@ fn main() {
         .about("Automatically absorb staged changes into your current branch")
         .arg(
             clap::Arg::with_name("base")
-                .help("Use this commit as the base of the absorb stack")
+                .help("Use this commit as the base of the hanoi stack")
                 .short("b")
                 .long("base")
                 .takes_value(true),
@@ -71,7 +73,7 @@ fn main() {
     let args = args.get_matches();
 
     if let Some(shell) = args.value_of("gen-completions") {
-        let app_name = "git-absorb";
+        let app_name = "git-hanoi";
         match shell {
             "bash" => {
                 args_clone.gen_completions_to(app_name, Shell::Bash, &mut io::stdout());
@@ -113,7 +115,19 @@ fn main() {
         ));
     }
 
-    if let Err(e) = git_absorb::run(&git_absorb::Config {
+    // Creates the cursive root - required for every application.
+    let mut siv = cursive::default();
+
+    // Creates a dialog with a single "Quit" button
+    siv.add_layer(
+        Dialog::around(TextView::new("Hello Dialog!"))
+            .title("Cursive")
+            .button("Quit", |s| s.quit()),
+    );
+
+    // Starts the event loop.
+    siv.run();
+    if let Err(e) = git_hanoi::run(&git_hanoi::Config {
         dry_run: args.is_present("dry-run"),
         force: args.is_present("force"),
         base: args.value_of("base"),
@@ -122,7 +136,7 @@ fn main() {
         one_fixup_per_commit: args.is_present("one-fixup-per-commit"),
         logger: &logger,
     }) {
-        crit!(logger, "absorb failed"; "err" => e.to_string());
+        crit!(logger, "hanoi failed"; "err" => e.to_string());
         // wait for async logger to finish writing messages
         drop(logger);
         ::std::process::exit(1);

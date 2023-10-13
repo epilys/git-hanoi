@@ -519,7 +519,7 @@ lines
     fn multiple_fixups_per_commit() {
         let ctx = prepare_and_stage();
 
-        // run 'git-absorb'
+        // run 'git-hanoi'
         let drain = slog::Discard;
         let logger = slog::Logger::root(drain, o!());
         let config = Config {
@@ -544,7 +544,7 @@ lines
     fn one_fixup_per_commit() {
         let ctx = prepare_and_stage();
 
-        // run 'git-absorb'
+        // run 'git-hanoi'
         let drain = slog::Discard;
         let logger = slog::Logger::root(drain, o!());
         let config = Config {

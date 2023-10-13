@@ -1,14 +1,14 @@
 [package]
-name = "git-absorb"
-version = "0.6.10"
+name = "git-hanoi"
+version = "0.0.1"
+edition = "2021"
 
-authors = ["Stephen Jung <tummychow511@gmail.com>"]
-description = "git commit --fixup, but automatic"
-homepage = "https://github.com/tummychow/git-absorb"
-repository = "https://github.com/tummychow/git-absorb"
+authors = ["Stephen Jung <tummychow511@gmail.com>", "Manos Pitsidianakis <manos@pitsidianak.is>"]
+description = ""
+homepage = "https://github.com/epilys/git-hanoi"
+repository = "https://github.com/epilys/git-hanoi"
 readme = "README.md"
-license = "BSD-3-Clause"
-edition = "2018"
+license = "EUPL-1.2"
 
 include = [
     "**/*.rs",
@@ -17,20 +17,18 @@ include = [
 ]
 
 [[bin]]
-name = "git-absorb"
+name = "git-hanoi"
 path = "src/main.rs"
 
-[dependencies.git2]
-version = "~0.16"
-default-features = false
-
 [dependencies]
-clap = "~2.33"
-slog = "~2.5"
-slog-term = "~2.6"
-slog-async = "~2.5"
-memchr = "~2.3"
 anyhow = "~1.0"
+clap = "~2.33"
+cursive = "0.20"
+git2 = { version = "~0.16", default-features = false }
+memchr = "~2.3"
+slog = "~2.5"
+slog-async = "~2.5"
+slog-term = "~2.6"
 
 [dev-dependencies]
-tempfile = "~3.1"
+tempfile = "3"
